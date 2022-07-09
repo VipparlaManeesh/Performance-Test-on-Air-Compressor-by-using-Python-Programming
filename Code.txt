@@ -1,0 +1,551 @@
+## PERFORMANCE TEST ON TWO STAGE RECIPROCATING AIR COMPRESSOR BY PYTHON PROGRAMMING ##
+
+# OBSERVATIONS:
+D=0.063   # Diameter of LP Cylinder in m
+L=0.087   # Stroke of LP Cylinder in m
+Do=0.01   # Diameter of orifice in m
+k=150     # Energy Meter constant in rev/KW-hr
+Pa=101325 # Atmospheric air pressure in N/m^2
+r=0.23    # Radius of brake arm in m
+R=287     # Charateristic gas constant in J/kg-k
+Cd=0.6391 # Cofficient of discharge of orifice
+Pi=22/7   # Value of Pi
+g=9.81    # acceleration due to gravity in m/s^2
+Rhow=1000 # Density of water kg/m^2
+
+      
+# Density of air at Room temperature,[Rho]
+def Rho():
+  Rho1=(Pa)/(R*Ta)
+  Rho=('%.4f'%Rho1)
+
+# Actual volume of air drawn at Room Temperatue condition,[Va]
+Va2=[]
+def Va():
+  A2=(Pi*(Do**2))/4
+  A1=(Pi*(D**2))/4
+  Rhoa=(101325)/(287*(Ta+273))  
+  ha=(hw*Rhow)/(Rhoa)
+  Va1=(Cd)*((A1*A2)/(((A1**2)-(A2**2))**0.5))*((2*g*ha)**0.5)
+  Va=('%.7f'%Va1)
+  Va2.append(Va1)
+  Va2.append(Va)
+
+# Swept volume of cylinder,[Vs]
+Vs_list1=[]
+Vs_list=[]
+def Vs():
+    b=0
+    if expe==2:
+        for i in range(0,2):
+            a=list0[b][3]
+            Vs1=((Pi)*(D**2)*(L)*(a))/(4*60)
+            Vs=('%.5f'%Vs1)
+            b=b+1
+            Vs_list1.append(Vs1)
+            Vs_list.append(Vs)
+    if expe==3:
+        for i in range(0,3):
+            a=list0[b][3]
+            Vs1=((Pi)*(D**2)*(L)*(a))/(4*60)
+            Vs=('%.5f'%Vs1)
+            b=b+1
+            Vs_list1.append(Vs1)
+            Vs_list.append(Vs)
+    if expe==4:
+        for i in range(0,4):
+            a=list0[b][3]
+            Vs1=((Pi)*(D**2)*(L)*(a))/(4*60)
+            Vs=('%.5f'%Vs1)
+            b=b+1
+            Vs_list1.append(Vs1)
+            Vs_list.append(Vs)
+    if expe==5:
+        for i in range(0,5):
+            a=list0[b][3]
+            Vs1=((Pi)*(D**2)*(L)*(a))/(4*60)
+            Vs=('%.5f'%Vs1)
+            b=b+1
+            Vs_list1.append(Vs1)
+            Vs_list.append(Vs)
+
+# Volumetric Effeciency,[η vol]    
+Vol_list1=[] 
+Vol_list=[]
+def Vol_Efficiency():
+    b=0
+    if expe==2:
+         for i in range(0,2):
+            Vol1=(Va2[0]*100)/(Vs_list1[b])
+            b=b+1
+            Vol=('%.2f'%Vol1)
+            Vol_list.append(Vol)
+            Vol_list1.append(Vol1)
+    if expe==3:
+         for i in range(0,3):
+            Vol1=(Va2[0]*100)/(Vs_list1[b])
+            b=b+1
+            Vol=('%.2f'%Vol1)
+            Vol_list.append(Vol)
+            Vol_list1.append(Vol1)
+    if expe==4:
+         for i in range(0,4):
+            Vol1=(Va2[0]*100)/(Vs_list1[b])
+            b=b+1
+            Vol=('%.2f'%Vol1)
+            Vol_list.append(Vol)
+            Vol_list1.append(Vol1)
+    if expe==5:
+        for i in range(0,5):
+            Vol1=(Va2[0]*100)/(Vs_list1[b])
+            b=b+1
+            Vol=('%.2f'%Vol1)
+            Vol_list.append(Vol)
+            Vol_list1.append(Vol1)
+
+# Brake power or Shaft power,[Ps]
+Ps_list1=[]
+Ps_list=[]
+def Ps():
+    b=0
+    c=0
+    for i in range(0,5):
+        Ps1=((2*Pi*(list0[b][2])*(list0[b][4]*r*g))/(60*1000))
+        b=b+1
+        c=c+1
+        Ps=('%.3f'%Ps1)
+        Ps_list1.append(Ps1)
+        Ps_list.append(Ps)
+
+# Isothermal Power,[Piso]
+Piso_list1=[]
+Piso_list=[]
+def Piso():
+    import numpy
+    b=0
+    for i in range(0,5):
+        Piso1=((Pa*Va2[0]*(numpy.log((Pa+(list0[b][1]*98066.5))/Pa)))/1000)
+        b=b+1
+        Piso=('%.3f'%Piso1)
+        Piso_list1.append(Piso1)
+        Piso_list.append(Piso)
+
+# Isothermal Effeciency,[η Iso]
+Iso_list1=[]
+Iso_list=[]
+def Iso_Effeiciency():
+    b=0
+    c=0
+    if expe==2:
+        for i in range(0,2):
+            Iso1=(((Piso_list1[b])/(Ps_list1[c]))*100)
+            b=b+1
+            c=c+1
+            Iso=('%.3f'%Iso1)
+            Iso_list1.append(Iso1)
+            Iso_list.append(Iso)
+    if expe==3:
+        for i in range(0,3):
+            Iso1=(((Piso_list1[b])/(Ps_list1[c]))*100)
+            b=b+1
+            c=c+1
+            Iso=('%.3f'%Iso1)
+            Iso_list1.append(Iso1)
+            Iso_list.append(Iso)
+    if expe==4:
+        for i in range(0,4):
+            Iso1=(((Piso_list1[b])/(Ps_list1[c]))*100)
+            b=b+1
+            c=c+1
+            Iso=('%.3f'%Iso1)
+            Iso_list1.append(Iso1)
+            Iso_list.append(Iso)
+    if expe==5:
+        for i in range(0,5):
+            Iso1=(((Piso_list1[b])/(Ps_list1[c]))*100)
+            b=b+1
+            c=c+1
+            Iso=('%.3f'%Iso1)
+            Iso_list1.append(Iso1)
+            Iso_list.append(Iso)
+
+# Power input to motor,[Pm]
+Pm_list1=[]
+Pm_list=[]
+def Pm():
+    x=5
+    b=0
+    if expe==2:
+        for i in range(0,2):
+            Pm1=((x/(list0[b][5]))*(3600/150))
+            b=b+1
+            Pm=('%.3f'%Pm1)
+            Pm_list1.append(Pm1)
+            Pm_list.append(Pm)
+    if expe==3:
+        for i in range(0,3):
+            Pm1=((x/(list0[b][5]))*(3600/150))
+            b=b+1
+            Pm=('%.3f'%Pm1)
+            Pm_list1.append(Pm1)
+            Pm_list.append(Pm)
+    if expe==4:
+        for i in range(0,4):
+            Pm1=((x/(list0[b][5]))*(3600/150))
+            b=b+1
+            Pm=('%.3f'%Pm1)
+            Pm_list1.append(Pm1)
+            Pm_list.append(Pm)
+    if expe==5:
+        for i in range(0,5):
+            Pm1=((x/(list0[b][5]))*(3600/150))
+            b=b+1
+            Pm=('%.3f'%Pm1)
+            Pm_list1.append(Pm1)
+            Pm_list.append(Pm)
+    
+# Efficiency of motor [η m]
+mot_list1=[]
+mot_list=[]
+def motor_efficiency():
+    b=0
+    c=0
+    if expe==2:
+        for i in range(0,2):
+            mot1=((Ps_list1[b])/(Pm_list1[c])*100)
+            b=b+1
+            c=c+1
+            mot=('%.2f'%mot1)
+            mot_list1.append(mot1)
+            mot_list.append(mot)
+    if expe==3:
+        for i in range(0,3):
+            mot1=((Ps_list1[b])/(Pm_list1[c])*100)
+            b=b+1
+            c=c+1
+            mot=('%.2f'%mot1)
+            mot_list1.append(mot1)
+            mot_list.append(mot)
+    if expe==4:
+        for i in range(0,4):
+            mot1=((Ps_list1[b])/(Pm_list1[c])*100)
+            b=b+1
+            c=c+1
+            mot=('%.2f'%mot1)
+            mot_list1.append(mot1)
+            mot_list.append(mot)
+    if expe==5:
+        for i in range(0,5):
+            mot1=((Ps_list1[b])/(Pm_list1[c])*100)
+            b=b+1
+            c=c+1
+            mot=('%.2f'%mot1)
+            mot_list1.append(mot1)
+            mot_list.append(mot)
+
+def n():
+    if expe==2:
+        print("")
+        u=['Units','m^3/sec','m^3/sec','%','RPM','KW','%','KW','%']
+        z=[1,Va2[1],Vs_list[0],Vol_list[0],Ps_list[0],Piso_list[0],Iso_list[0],Pm_list[0],mot_list[0]]
+        y=[2,Va2[1],Vs_list[1],Vol_list[1],Ps_list[1],Piso_list[1],Iso_list[1],Pm_list[1],mot_list[1]]
+        d=[u,z,y]
+        print("Table of Calculations:")
+        print("----------------------")
+        print("{:<7} {:<14} {:<14} {:<14} {:<14} {:<20} {:<14} {:<12} {:<14} ".format('S.No','Actual Volume','Swept Volume','Volumetric η','Shaft Power','Isothermal Power','Isothermal η','Motor Power','Motor η'))
+        for i in d:
+            e,f,g,h,i,j,k,l,m=i
+            print("{:<7} {:<14} {:<14} {:<14} {:<14} {:<20} {:<14} {:<12} {:<14}".format(e,f,g,h,i,j,k,l,m))     
+        import math
+        a=(math.fsum(Vol_list1))/2   
+        b=(math.fsum(Iso_list1))/2
+        c=(math.fsum(mot_list1))/2
+        print("")
+        print("Result:")
+        print("-------")
+        print("Overall Volumetric Efficiency of compressor:",'%.2f'%a,"%")
+        print("Overall Isothermal Efficiency of compressor:",'%.2f'%b,"%")
+        print("Overall Motor Efficiency of compressor     :",'%.2f'%c,"%") 
+    if expe==3:
+        print("")
+        u=['Units','m^3/sec','m^3/sec','%','RPM','KW','%','KW','%']
+        z=[1,Va2[1],Vs_list[0],Vol_list[0],Ps_list[0],Piso_list[0],Iso_list[0],Pm_list[0],mot_list[0]]
+        y=[2,Va2[1],Vs_list[1],Vol_list[1],Ps_list[1],Piso_list[1],Iso_list[1],Pm_list[1],mot_list[1]]
+        x=[3,Va2[1],Vs_list[2],Vol_list[2],Ps_list[2],Piso_list[2],Iso_list[2],Pm_list[2],mot_list[2]]
+        d=[u,z,y,x]
+        print("Table of Calculations:")
+        print("----------------------")
+        print("{:<7} {:<14} {:<14} {:<14} {:<14} {:<20} {:<14} {:<12} {:<14} ".format('S.No','Actual Volume','Swept Volume','Volumetric η','Shaft Power','Isothermal Power','Isothermal η','Motor Power','Motor η'))
+        for i in d:
+            e,f,g,h,i,j,k,l,m=i
+            print("{:<7} {:<14} {:<14} {:<14} {:<14} {:<20} {:<14} {:<12} {:<14}".format(e,f,g,h,i,j,k,l,m))
+        import math
+        a=(math.fsum(Vol_list1))/3   
+        b=(math.fsum(Iso_list1))/3
+        c=(math.fsum(mot_list1))/3
+        print("")
+        print("Result:")
+        print("-------")
+        print("Overall Volumetric Efficiency of compressor:",'%.2f'%a,"%")
+        print("Overall Isothermal Efficiency of compressor:",'%.2f'%b,"%")
+        print("Overall Motor Efficiency of compressor     :",'%.2f'%c,"%") 
+    if expe==4:
+        print("")
+        u=['Units','m^3/sec','m^3/sec','%','RPM','KW','%','KW','%']
+        z=[1,Va2[1],Vs_list[0],Vol_list[0],Ps_list[0],Piso_list[0],Iso_list[0],Pm_list[0],mot_list[0]]
+        y=[2,Va2[1],Vs_list[1],Vol_list[1],Ps_list[1],Piso_list[1],Iso_list[1],Pm_list[1],mot_list[1]]
+        x=[3,Va2[1],Vs_list[2],Vol_list[2],Ps_list[2],Piso_list[2],Iso_list[2],Pm_list[2],mot_list[2]]
+        w=[4,Va2[1],Vs_list[3],Vol_list[3],Ps_list[3],Piso_list[3],Iso_list[3],Pm_list[3],mot_list[3]]
+        d=[u,z,y,x,w]
+        print("Table of Calculations:")
+        print("----------------------")
+        print("{:<7} {:<14} {:<14} {:<14} {:<14} {:<20} {:<14} {:<12} {:<14} ".format('S.No','Actual Volume','Swept Volume','Volumetric η','Shaft Power','Isothermal Power','Isothermal η','Motor Power','Motor η'))
+        for i in d:
+            e,f,g,h,i,j,k,l,m=i
+            print("{:<7} {:<14} {:<14} {:<14} {:<14} {:<20} {:<14} {:<12} {:<14}".format(e,f,g,h,i,j,k,l,m))
+        import math
+        a=(math.fsum(Vol_list1))/4   
+        b=(math.fsum(Iso_list1))/4
+        c=(math.fsum(mot_list1))/4
+        print("")
+        print("Result:")
+        print("-------")
+        print("Overall Volumetric Efficiency of compressor:",'%.2f'%a,"%")
+        print("Overall Isothermal Efficiency of compressor:",'%.2f'%b,"%")
+        print("Overall Motor Efficiency of compressor     :",'%.2f'%c,"%") 
+    if expe==5:
+        print("")
+        u=['Units','m^3/sec','m^3/sec','%','RPM','KW','%','KW','%']
+        z=[1,Va2[1],Vs_list[0],Vol_list[0],Ps_list[0],Piso_list[0],Iso_list[0],Pm_list[0],mot_list[0]]
+        y=[2,Va2[1],Vs_list[1],Vol_list[1],Ps_list[1],Piso_list[1],Iso_list[1],Pm_list[1],mot_list[1]]
+        x=[3,Va2[1],Vs_list[2],Vol_list[2],Ps_list[2],Piso_list[2],Iso_list[2],Pm_list[2],mot_list[2]]
+        w=[4,Va2[1],Vs_list[3],Vol_list[3],Ps_list[3],Piso_list[3],Iso_list[3],Pm_list[3],mot_list[3]]
+        v=[5,Va2[1],Vs_list[4],Vol_list[4],Ps_list[4],Piso_list[4],Iso_list[4],Pm_list[4],mot_list[4]]
+        d=[u,z,y,x,w,v]
+        print("Table of Calculations:")
+        print("----------------------")
+        print("{:<7} {:<14} {:<14} {:<14} {:<14} {:<20} {:<14} {:<12} {:<14} ".format('S.No','Actual Volume','Swept Volume','Volumetric η','Shaft Power','Isothermal Power','Isothermal η','Motor Power','Motor η'))
+        for i in d:
+            e,f,g,h,i,j,k,l,m=i
+            print("{:<7} {:<14} {:<14} {:<14} {:<14} {:<20} {:<14} {:<12} {:<14}".format(e,f,g,h,i,j,k,l,m))
+        import math
+        a=(math.fsum(Vol_list1))/5   
+        b=(math.fsum(Iso_list1))/5
+        c=(math.fsum(mot_list1))/5
+        print("")
+        print("Result:")
+        print("-------")
+        print("Overall Volumetric Efficiency of compressor:",'%.2f'%a,"%")
+        print("Overall Isothermal Efficiency of compressor:",'%.2f'%b,"%")
+        print("Overall Motor Efficiency of compressor     :",'%.2f'%c,"%") 
+    
+def graph1():
+    import matplotlib.pyplot as plt
+    if expe==2:
+        x = [list1[1],list2[1]]
+        y = [mot_list1[0],mot_list1[1]]
+        plt.plot(x, y, color='green', linewidth = 3, marker='o', markerfacecolor='blue', markersize=8)
+        plt.xlabel('Delivery Pressure ---->')
+        plt.ylabel('Motor Effeciency ---->')
+        plt.title('Graph Between Delivery Pressure and Motor Effeciency')
+        plt.show()
+    if expe==3:
+        x = [list1[1],list2[1],list3[1]]
+        y = [mot_list1[0],mot_list1[1],mot_list1[2]]
+        plt.plot(x, y, color='green', linewidth = 3, marker='o', markerfacecolor='blue', markersize=8)
+        plt.xlabel('Delivery Pressure ---->')
+        plt.ylabel('Motor Effeciency ---->')
+        plt.title('Graph Between Delivery Pressure and Motor Effeciency')
+        plt.show()
+    if expe==4:
+        x = [list1[1],list2[1],list3[1],list4[1]]
+        y = [mot_list1[0],mot_list1[1],mot_list1[2],mot_list1[3]]
+        plt.plot(x, y, color='green', linewidth = 3, marker='o', markerfacecolor='blue', markersize=8)
+        plt.xlabel('Delivery Pressure ---->')
+        plt.ylabel('Motor Effeciency ---->')
+        plt.title('Graph Between Delivery Pressure and Motor Effeciency')
+        plt.show()
+    if expe==5:
+        x = [list1[1],list2[1],list3[1],list4[1],list5[1]]
+        y = [mot_list1[0],mot_list1[1],mot_list1[2],mot_list1[3],mot_list1[4]]
+        plt.plot(x, y, color='green', linewidth = 3, marker='o', markerfacecolor='blue', markersize=8)
+        plt.xlabel('Delivery Pressure ---->')
+        plt.ylabel('Motor Effeciency ---->')
+        plt.title('Graph Between Delivery Pressure and Motor Effeciency')
+        plt.show()
+        
+def graph2():
+    import matplotlib.pyplot as plt
+    if expe==2:
+        x = [list1[1],list2[1]]
+        y = [Vol_list1[0],Vol_list1[1]]
+        plt.plot(x, y, color='green', linewidth = 3, marker='o', markerfacecolor='blue', markersize=8)
+        plt.xlabel('Delivery Pressure ---->')
+        plt.ylabel('Volumetric Effeciency ---->')
+        plt.title('Graph Between Delivery Pressure and Volumetric Effeciency')
+        plt.show()
+    if expe==3:
+        x = [list1[1],list2[1],list3[1]]
+        y = [Vol_list1[0],Vol_list1[1],Vol_list1[2]]
+        plt.plot(x, y, color='green', linewidth = 3, marker='o', markerfacecolor='blue', markersize=8)
+        plt.xlabel('Delivery Pressure ---->')
+        plt.ylabel('Volumetric Effeciency ---->')
+        plt.title('Graph Between Delivery Pressure and Volumetric Effeciency')
+        plt.show()
+    if expe==4:
+        x = [list1[1],list2[1],list3[1],list4[1]]
+        y = [Vol_list1[0],Vol_list1[1],Vol_list1[2],Vol_list1[3]]
+        plt.plot(x, y, color='green', linewidth = 3, marker='o', markerfacecolor='blue', markersize=8)
+        plt.xlabel('Delivery Pressure ---->')
+        plt.ylabel('Volumetric Effeciency ---->')
+        plt.title('Graph Between Delivery Pressure and Volumetric Effeciency')
+        plt.show()
+    if expe==5:
+        x = [list1[1],list2[1],list3[1],list4[1],list5[1]]
+        y = [Vol_list1[0],Vol_list1[1],Vol_list1[2],Vol_list1[3],Vol_list1[4]]
+        plt.plot(x, y, color='green', linewidth = 3, marker='o', markerfacecolor='blue', markersize=8)
+        plt.xlabel('Delivery Pressure ---->')
+        plt.ylabel('Volumetric Effeciency ---->')
+        plt.title('Graph Between Delivery Pressure and Volumetric Effeciency')
+        plt.show()
+    
+def graph3():
+    import matplotlib.pyplot as plt
+    if expe==2:
+        x = [list1[1],list2[1]]
+        y = [Iso_list1[0],Iso_list1[1]]
+        plt.plot(x, y, color='green', linewidth = 3, marker='o', markerfacecolor='blue', markersize=8)
+        plt.xlabel('Delivery Pressure ---->')
+        plt.ylabel('Isothermal Effeciency ---->')
+        plt.title('Graph Between Delivery Pressure and Isothermal Effeciency')
+        plt.show()
+    if expe==3:
+        x = [list1[1],list2[1],list3[1]]
+        y = [Iso_list1[0],Iso_list1[1],Iso_list1[2]]
+        plt.plot(x, y, color='green', linewidth = 3, marker='o', markerfacecolor='blue', markersize=8)
+        plt.xlabel('Delivery Pressure ---->')
+        plt.ylabel('Isothermal Effeciency ---->')
+        plt.title('Graph Between Delivery Pressure and Isothermal Effeciency')
+        plt.show()
+    if expe==4:
+        x = [list1[1],list2[1],list3[1],list4[1]]
+        y = [Iso_list1[0],Iso_list1[1],Iso_list1[2],Iso_list1[3]]
+        plt.plot(x, y, color='green', linewidth = 3, marker='o', markerfacecolor='blue', markersize=8)
+        plt.xlabel('Delivery Pressure ---->')
+        plt.ylabel('Isothermal Effeciency ---->')
+        plt.title('Graph Between Delivery Pressure and Isothermal Effeciency')
+        plt.show()
+    if expe==5:
+        x = [list1[1],list2[1],list3[1],list4[1],list5[1]]
+        y = [Iso_list1[0],Iso_list1[1],Iso_list1[2],Iso_list1[3],Iso_list1[4]]
+        plt.plot(x, y, color='green', linewidth = 3, marker='o', markerfacecolor='blue', markersize=8)
+        plt.xlabel('Delivery Pressure ---->')
+        plt.ylabel('Isothermal Effeciency ---->')
+        plt.title('Graph Between Delivery Pressure and Isothermal Effeciency')
+        plt.show()
+
+def modifications():
+    print("")
+    print("Are any modifications required in the input values (Y/N)")
+    leo=input()
+    if leo=='Yes' or leo=='yes' or leo=='Y' or leo=='YES' or leo=='y' or leo=='YeS':
+        print("please select the row")
+        leo1=[int(v) for v in input().split()]
+        print("please select the coloumn")
+        leo2=[int(v) for v in input().split()]
+        print("Provide the modified value")
+        leo3=[float(v) for v in input().split()]
+        mi=0
+        me=0
+        for i in leo1:
+            list0[i-1].insert(leo2[mi]-1,leo3[me])
+            list0[i-1].pop(leo2[mi])
+            mi=mi+1
+            me=me+1
+            print(list0[i-1])
+    
+#Calling the Alagorithms/Functions
+list0=[]
+print("Provide the no.of times Experiment is done")
+import sys
+print('\033[1m' + "Note: Not more than 5 times" + '\033[0m')
+expe=int(input())
+for i in range(1):
+    if expe==1 or expe==0:
+        import sys
+        print('\033[1m' + 'Cannot Conduct the expeiment with single experiment values.' + '\033[0m')
+        print('\033[1m' + 'Provide the values of atleast two experiments.' + '\033[0m')
+        sys.exit()
+print("Provide the Atomspheric air temperature Ta(°C)")
+Ta=int(input())
+print("Provide the Manometer Reading hw(m)")
+hw=float(input())
+print("Pr= Receiver Pressure")
+print("Pg= Delivery Pressure")
+print("Nm= Speed of the motor")
+print("Nc= Speed of the Compressor")
+print("S=  Spring Balance Reading")
+print("t=  Time for x revolutions of enenrgy meter")
+import sys
+print('\033[1m' + 'Note: Provide the values of Receiver Pressure Pr and Delivery Pressure Pg in Kgf/cm^2' + '\033[0m')
+print("Please provide the values from table of readings ")
+print("Pr| Pg | Nm |  Nc | S | t |")
+for i in range(expe):  
+  a1=[float(v) for v in input().split()]
+  list0.append(a1)
+modifications()
+if len(list0)==2:
+    extra_list2=[1,1,1,1,1,1]
+    extra_list3=[1,1,1,1,1,1]
+    extra_list4=[1,1,1,1,1,1]
+    extra_list5=[1,1,1,1,1,1]
+    list0.append(extra_list2)
+    list0.append(extra_list3)
+    list0.append(extra_list4)
+    list0.append(extra_list5)
+if len(list0)==3:
+    extra_list2=[1,1,1,1,1,1]
+    extra_list3=[1,1,1,1,1,1]
+    extra_list4=[1,1,1,1,1,1]
+    list0.append(extra_list2)
+    list0.append(extra_list3)
+    list0.append(extra_list4)
+if len(list0)==4:
+    extra_list2=[1,1,1,1,1,1]
+    extra_list3=[1,1,1,1,1,1]
+    list0.append(extra_list2)
+    list0.append(extra_list3)
+if len(list0)==5:
+    extra_list2=[1,1,1,1,1,1]
+    list0.append(extra_list2)
+if len(list0)==6:
+    manu=0
+if sum(list0[0])==0 or sum(list0[1])==0 or sum(list0[2])==0 or sum(list0[3])==0 or sum(list0[4])==0:
+    import sys
+    print('\033[1m' + 'Cannot Conduct the Expeiment without providing all the experiment values.' + '\033[0m')
+    sys.exit()
+if len(list0[0])!=6 or len(list0[1])!=6 or len(list0[2])!=6 or len(list0[3])!=6 or len(list0[4])!=6:
+    import sys
+    print('\033[1m' + 'Cannot Conduct the Expeiment without providing all the experiment values.' + '\033[0m')
+    sys.exit()
+list1=list0[0]
+list2=list0[1]
+list3=list0[2]
+list4=list0[3]
+list5=list0[4]
+Rho()
+Va()
+Vs()
+Vol_Efficiency()
+Ps()
+Piso()
+Iso_Effeiciency()
+Pm()
+motor_efficiency()
+n()
+print("")
+graph1()
+print("")
+graph2()
+print("")
+graph3()
